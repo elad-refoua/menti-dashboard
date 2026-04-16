@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MENTI Project Status Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0f172a;
+    --bg-card: #1e293b;
+    --bg-card-hover: #273548;
+    --border: #334155;
+    --text: #e2e8f0;
+    --text-muted: #94a3b8;
+    --text-dim: #64748b;
+    --accent: #38bdf8;
+    --accent-2: #a78bfa;
+    --green: #10b981;
+    --green-dim: #065f46;
+    --blue: #3b82f6;
+    --blue-dim: #1e3a8a;
+    --orange: #f59e0b;
+    --orange-dim: #78350f;
+    --grey: #6b7280;
+    --grey-dim: #374151;
+    --red: #ef4444;
+    --yellow: #eab308;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Heebo', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+    padding: 24px 16px;
+    min-height: 100vh;
+  }
+  .container { max-width: 1400px; margin: 0 auto; }
+
+  /* Header */
+  header {
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 32px;
+    margin-bottom: 24px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  }
+  .header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  h1 {
+    font-size: 2.2rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 8px;
+  }
+  .subtitle { color: var(--text-muted); font-size: 1rem; font-weight: 400; }
+  .meta-badges {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 14px;
+  }
+  .meta-badge {
+    background: rgba(56,189,248,0.1);
+    border: 1px solid rgba(56,189,248,0.3);
+    color: var(--accent);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    direction: ltr;
+  }
+  .live-note {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    margin-top: 12px;
+    font-style: italic;
+  }
+
+  /* Summary Bar */
+  .summary-bar {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+  .summary-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px 20px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.15s ease;
+  }
+  .summary-card::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 4px; height: 100%;
+  }
+  .summary-card.green::before { background: var(--green); }
+  .summary-card.blue::before { background: var(--blue); }
+  .summary-card.orange::before { background: var(--orange); }
+  .summary-card.grey::before { background: var(--grey); }
+  .summary-card.purple::before { background: var(--accent-2); }
+  .summary-card:hover { transform: translateY(-2px); }
+  .summary-num {
+    font-size: 2.4rem;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 6px;
+    direction: ltr;
+  }
+  .summary-card.green .summary-num { color: var(--green); }
+  .summary-card.blue .summary-num { color: var(--blue); }
+  .summary-card.orange .summary-num { color: var(--orange); }
+  .summary-card.grey .summary-num { color: var(--grey); }
+  .summary-card.purple .summary-num { color: var(--accent-2); }
+  .summary-label {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  /* Section headers */
+  .section-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin: 32px 0 16px;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-title::before {
+    content: '';
+    width: 4px;
+    height: 22px;
+    background: linear-gradient(180deg, var(--accent), var(--accent-2));
+    border-radius: 2px;
+  }
+
+  /* Article grid */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    gap: 16px;
+  }
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    transition: all 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 3px;
+    background: var(--border);
+  }
+  .card.accepted::before { background: var(--green); }
+  .card.under-review::before { background: var(--blue); }
+  .card.in-prep::before { background: var(--orange); }
+  .card.planning::before { background: var(--grey); }
+  .card.running::before { background: var(--accent-2); }
+  .card:hover {
+    background: var(--bg-card-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.3);
+  }
+
+  .card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .card-num {
+    background: rgba(56,189,248,0.1);
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 0.85rem;
+    padding: 4px 10px;
+    border-radius: 6px;
+    direction: ltr;
+    flex-shrink: 0;
+  }
+  .chip {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    flex-shrink: 0;
+    direction: ltr;
+  }
+  .chip.green { background: var(--green-dim); color: #6ee7b7; border: 1px solid var(--green); }
+  .chip.blue { background: var(--blue-dim); color: #93c5fd; border: 1px solid var(--blue); }
+  .chip.orange { background: var(--orange-dim); color: #fcd34d; border: 1px solid var(--orange); }
+  .chip.grey { background: var(--grey-dim); color: #d1d5db; border: 1px solid var(--grey); }
+  .chip.purple { background: rgba(167,139,250,0.2); color: #c4b5fd; border: 1px solid var(--accent-2); }
+
+  .card-title {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 4px;
+    line-height: 1.3;
+    direction: ltr;
+    text-align: left;
+  }
+  .card-short {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+    direction: ltr;
+    text-align: left;
+  }
+  .card-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .field {
+    display: flex;
+    gap: 8px;
+    font-size: 0.83rem;
+    line-height: 1.4;
+    direction: ltr;
+    text-align: left;
+  }
+  .field-label {
+    color: var(--text-dim);
+    font-weight: 500;
+    min-width: 80px;
+    flex-shrink: 0;
+  }
+  .field-value { color: var(--text); }
+  .field-value .bold { font-weight: 700; color: #fbbf24; }
+  .field-value .authors-refoua { font-weight: 700; color: var(--accent); }
+
+  .metric-box {
+    background: rgba(15,23,42,0.6);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 12px;
+    margin-top: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    direction: ltr;
+  }
+  .metric-box .metric-label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .metric-box .metric-val {
+    font-family: 'Heebo', monospace;
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+  .metric-box .metric-val.raw { color: var(--orange); }
+  .metric-box .metric-val.usable { color: var(--green); }
+  .metric-box .metric-val.zero { color: var(--text-dim); }
+  .metric-box .metric-val.big { color: var(--accent); font-size: 1.1rem; }
+
+  .next-action {
+    margin-top: 10px;
+    padding: 10px 12px;
+    background: rgba(167,139,250,0.08);
+    border-right: 3px solid var(--accent-2);
+    border-radius: 4px 8px 8px 4px;
+    font-size: 0.82rem;
+    color: #c4b5fd;
+    direction: ltr;
+    text-align: left;
+  }
+  .next-action-label {
+    font-size: 0.7rem;
+    color: var(--accent-2);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 3px;
+  }
+
+  .folder-path {
+    font-family: 'Consolas', 'Monaco', monospace;
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    word-break: break-all;
+    direction: ltr;
+    text-align: left;
+    margin-top: 8px;
+  }
+
+  /* Metrics section */
+  .metrics-section {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    margin-top: 24px;
+  }
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 14px;
+  }
+  .metric-card {
+    background: rgba(15,23,42,0.6);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+  }
+  .metric-card .num {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--accent);
+    direction: ltr;
+  }
+  .metric-card .label {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+
+  /* Qualtrics table */
+  .q-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 14px;
+    font-size: 0.85rem;
+    direction: ltr;
+  }
+  .q-table th, .q-table td {
+    padding: 8px 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+  .q-table th {
+    color: var(--text-muted);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+  }
+  .q-table td { color: var(--text); }
+  .q-table td .sid {
+    font-family: 'Consolas', monospace;
+    font-size: 0.75rem;
+    color: var(--text-dim);
+  }
+  .q-table td .count {
+    font-weight: 700;
+    font-size: 0.95rem;
+  }
+  .q-table tr:hover { background: rgba(56,189,248,0.05); }
+  .count.changed { color: var(--green); }
+  .delta {
+    font-size: 0.75rem;
+    color: var(--green);
+    margin-left: 6px;
+    font-weight: 600;
+  }
+
+  /* Timeline */
+  .timeline {
+    position: relative;
+    padding: 16px 0;
+    margin-top: 14px;
+  }
+  .timeline-item {
+    background: rgba(15,23,42,0.6);
+    border: 1px solid var(--border);
+    border-right: 3px solid var(--accent);
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin-bottom: 10px;
+    direction: ltr;
+    text-align: left;
+  }
+  .timeline-item.hot { border-right-color: var(--orange); }
+  .timeline-item.soon { border-right-color: var(--accent-2); }
+  .timeline-date {
+    font-size: 0.75rem;
+    color: var(--accent);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 6px;
+  }
+  .timeline-item.hot .timeline-date { color: var(--orange); }
+  .timeline-item.soon .timeline-date { color: var(--accent-2); }
+  .timeline-title {
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+  .timeline-desc { font-size: 0.85rem; color: var(--text-muted); }
+
+  /* Footer */
+  footer {
+    margin-top: 32px;
+    padding: 20px;
+    text-align: center;
+    color: var(--text-dim);
+    font-size: 0.8rem;
+    border-top: 1px solid var(--border);
+  }
+
+  @media (max-width: 640px) {
+    body { padding: 12px 8px; }
+    header { padding: 20px; }
+    h1 { font-size: 1.6rem; }
+    .summary-num { font-size: 1.8rem; }
+    .grid { grid-template-columns: 1fr; }
+    .card { padding: 16px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+  <div class="header-row">
+    <div>
+      <h1>MENTI Project Status Dashboard</h1>
+      <p class="subtitle">Developing AI Tools for Enhancing Mentalization Skills — Bar-Ilan University</p>
+      <div class="meta-badges">
+        <span class="meta-badge">13 articles tracked</span>
+        <span class="meta-badge">IRB 290125444</span>
+        <span class="meta-badge">Grant #0008682</span>
+        <span class="meta-badge">PI: Omer Linkovski</span>
+        <a href="https://elad-refoua.github.io/menti-dashboard/" target="_blank" style="text-decoration: none;">
+          <span class="meta-badge" style="background: rgba(16,185,129,0.15); border-color: rgba(16,185,129,0.4); color: var(--green);">Live: elad-refoua.github.io/menti-dashboard</span>
+        </a>
+      </div>
+    </div>
+    <div style="text-align: left; direction: ltr;">
+      <div style="color: var(--text-muted); font-size: 0.85rem;">Last Updated</div>
+      <div style="font-size: 1.4rem; font-weight: 700; color: var(--accent);">2026-04-16</div>
+      <div style="color: var(--text-dim); font-size: 0.75rem; margin-top: 4px;">via live verification</div>
+    </div>
+  </div>
+  <div class="live-note">
+    Data sources: Qualtrics API (AI_PSYCH account, live response counts) · CV parser (CV - Elad Refoua 010426.docx) · Folder scan (study/articles/*/, UP simu, help in war time, Gemini-menti)
+  </div>
+</header>
+
+<!-- Summary Bar -->
+<div class="summary-bar">
+  <div class="summary-card green">
+    <div class="summary-num">1</div>
+    <div class="summary-label">Accepted</div>
+  </div>
+  <div class="summary-card blue">
+    <div class="summary-num">2</div>
+    <div class="summary-label">Under Review</div>
+  </div>
+  <div class="summary-card orange">
+    <div class="summary-num">8</div>
+    <div class="summary-label">In Preparation</div>
+  </div>
+  <div class="summary-card purple">
+    <div class="summary-num">1</div>
+    <div class="summary-label">Actively Running</div>
+  </div>
+  <div class="summary-card grey">
+    <div class="summary-num">1</div>
+    <div class="summary-label">Planning</div>
+  </div>
+</div>
+
+<!-- Articles -->
+<h2 class="section-title">Articles (1-13)</h2>
+<div class="grid">
+
+<!-- Article 1: MentiParent -->
+<div class="card accepted">
+  <div class="card-head">
+    <span class="card-num">#1</span>
+    <span class="chip green">Accepted</span>
+  </div>
+  <div class="card-title">The MentiParent chatbot: AI approach to enhancing parental reflective functioning</div>
+  <div class="card-short">Danny + Evelyn (MentiParent pilot)</div>
+  <div class="card-body">
+    <div class="field"><span class="field-label">Authors:</span><span class="field-value">Yirmiya*, <span class="authors-refoua">Refoua*</span>, Truscott, Reeve, Fonagy, Elyoseph</span></div>
+    <div class="field"><span class="field-label">Journal:</span><span class="field-value"><span class="bold">Scientific Reports</span> (IF 3.9, 25/136)</span></div>
+    <div class="field"><span class="field-label">Data:</span><span class="field-value">N=60 practitioners + N=36 parents</span></div>
+    <div class="field"><span class="field-label">Results:</span><span class="field-value">Feasibility M=5.61, Acceptability M=5.56 (7-pt)</span></div>
+    <div class="metric-box">
+      <span class="metric-label">Qualtrics raw</span>
+      <span class="metric-val raw">50 (danny-1) / 21 (danny-2)</span>
+      <span class="metric-label">Analyzed</span>
+      <span class="metric-val usable">60 + 36</span>
+    </div>
+    <div class="next-action">
+      <div class="next-action-label">Next</div>
+      Monitor production proofs from Scientific Reports
+    </div>
+    <div class="folder-path">study/articles/1.danny/</div>
+  </div>
+</div>
+
+<!-- Article 2: Foster Care -->
+<div class="card under-review">
+  <div class="card-head">
+    <span class="card-num">#2</span>
+    <span class="chip blue">Under Review</span>
+  </div>
+  <div class="card-title">Fostering Reflection: Mentalization-Based GenAI Simulator for Foster Care Supervisors</div>
+  <div class="card-short">Julie / Guli (MentiCare)</div>
+  <div class="card-body">
+    <div class="field"><span class="field-label">Authors:</span><span class="field-value">Elyoseph T., <span class="authors-refoua">Refoua</span>, Novis-Deutsch, Yirmiya, Fonagy, Enosh</span></div>
+    <div class="field"><span class="field-label">Journal:</span><span class="field-value"><span class="bold">Child Abuse &amp; Neglect</span></span></div>
+    <div class="field"><span class="field-label">Data:</span><span class="field-value">N=46 female foster care supervisors</span></div>
+    <div class="field"><span class="field-label">Results:</span><span class="field-value">Recommend M=6.67, 93.4% rated 6-7</span></div>
+    <div class="metric-box">
+      <span class="metric-label">Qualtrics raw</span>
+      <span class="metric-val raw">71</span>
+      <span class="metric-label">Analyzed</span>
+      <span class="metric-val usable">46</span>
+    </div>
+    <div class="next-action">
+      <div class="next-action-label">Next</div>
+      Wait for reviewer feedback from Child Abuse &amp; Neglect
+    </div>
+    <div class="folder-path">study/articles/2.Julie/</div>
+  </div>
+</div>
+
+<!-- Article 3: Evelyn new run -->
+<div class="card planning">
+  <div class="card-head">
+    <span class="card-num">#3</span>
+    <span class="chip grey">Planning</span>
+  </div>
+  <div class="card-title">Evelyn Multi-Session Training Study</div>
+  <div class="card-short">3 weekly sessions — does training on session N improve session N+1?</div>
+  <div class="card-body">
+    <div class="field"><span class="field-label">Authors:</span><span class="field-value">TBD (likely Yirmiya / <span class="authors-refoua">Refoua</span>)</span></div>
+    <div class="field"><span class="field-label">Platform:</span><span class="field-value">Cesura (app.cesura.ai)</span></div>
+    <div class="field"><span class="field-label">Design:</span><span class="field-value">3 weekly sessions (Evelyn 1, 2, 3) — same themes, different situations. Paid participants.</span></div>
+    <div class="field"><span class="field-label">Population:</span><span class="field-value">Parents of adolescents</span></div>
+    <div class="field"><span class="field-label">Primary RQ:</span><span class="field-value">Does training on session N improve mentalization behavior in session N+1?</span></div>
+    <div class="field"><span class="field-label">Core:</span><span class="field-value">Parental self-efficacy (pre/post) + PRFQ (RF change)</span></div>
+    <div class="field"><span class="field-label">Well-being:</span><span class="field-value"><span class="bold">PHQ-9 · GAD-7 · DASS</span> (parent)</span></div>
+    <div class="field"><span class="field-label">Child:</span><span class="field-value"><span class="bold">SDQ</span> (parent-reported child symptoms)</span></div>
+    <div class="field"><span class="field-label">Process:</span><span class="field-value">Content coding of conversations + Dr. Menton feedback trajectory</span></div>
+    <div class="field"><span class="field-label">Personalization:</span><span class="field-value">Under consideration — Adam (boy) vs Evelyn (girl) based on user's child</span></div>
+    <div class="field"><span class="field-label">Prior data:</span><span class="field-value">N=36 from Article 1 (feasibility only, single session)</span></div>
+    <div class="field"><span class="field-label">Open:</span><span class="field-value">How to sustain engagement across 3 weekly sessions?</span></div>
+    <div class="next-action">
+      <div class="next-action-label">Next</div>
+      Finalize plan with Karen + Yuval · build 3 scenario variants · design engagement mechanism · pilot before launch
+    </div>
+    <div class="folder-path">study/articles/3.Evelyn/ (see STUDY_PLAN.md)</div>
+  </div>
+</div>
+
+<!-- Article 4: Reimagining Clinical Training -->
+<div class="card in-prep">
+  <div class="card-head">
+    <span class="card-num">#4</span>
+    <span class="chip orange">In Prep</span>
+  </div>
+  <div class="card-title">Reimagining clinical training in the AI era: Generative simulation as scaffolding for therapist skills</div>
+  <div class="card-short">Broader theoretical paper (MentiTherapist)</div>
+  <div class="card-body">
+    <div class="field"><span class="field-label">Authors:</span><span class="field-value"><span class="authors-refoua">Refoua (1st)</span>, Bar, Linkovski, Elyoseph T., Elyoseph Z., Yirmiya, Rafaeli A.K., Rafaeli E.</span></div>
+    <div class="field"><span class="field-label">Scope:</span><span class="field-value">AI simulation for clinical training (beyond Dr. Dweck)</span></div>
+    <div class="field"><span class="field-label">Related:</span><span class="field-value">CPSP special issue abstract submitted; Dr. Dweck prompt complete</span></div>
+    <div class="next-action">
+      <div class="next-action-label">Next</div>
+      Develop full manuscript draft from theoretical outline
+    </div>
+    <div class="folder-path">study/articles/4. Dr Carol and guidance/</div>
+  </div>
+</div>
+
+<!-- Article 5: Socratic (Yoav) -->
+<div class="card in-prep">
+  <div class="card-head">
+    <span class="card-num">#5</span>
+    <span class="chip orange">Recruiting</span>
+  </div>
+  <div class="card-title">Socratic Dialogue Training Simulation (Yoav)</div>
+  <div class="card-short">Title TBD — recruiting more participants</div>
+  <div class="card-body">
+    <div class="field"><span class="field-label">Authors:</span><span class="field-value">Podoly*, <span class="authors-refoua">Refoua*</span>, Linkovski, Elyoseph, Rafaeli, Yirmiya, Derbi</span></div>
+    <div class="field"><span class="field-label">Platform:</span><span class="field-value">pmfm.ai / CPTsimulator (CalStudio)</span></div>
+    <div class="field"><span class="field-label">Results (N=38):</span><span class="field-value">RM-ANCOVA p=.039, d=0.31</span></div>
+    <div class="field"><span class="field-label">Target:</span><span class="field-value">N≈65-82 for power</span></div>
+    <div class="metric-box">
+      <span class="metric-label">Qualtrics raw</span>
+      <span class="metric-val raw">290 <span class="delta">+6 since 04-09</span></span>
+      <span class="metric-label">Analyzed</span>
+      <span class="metric-val usable">38</span>
+    </div>
+    <div class="next-action">
+      <div class="next-action-label">Next</div>
+      Recruit ~30 more participants; rerun analysis at larger N
+    </div>
+    <div class="folder-path">study/articles/5.yoav/ · SV_039jMzxfdPX6yRU</div>
+  </div>
+</div>
+
+<!-- Article 6: AI Rater -->
+<div class="card in-prep">
+  <div class="card-head">
+    <span class="card-num">#6</span>
+    <span class="chip orange">In Prep</span>
+  </div>
+  <div class="card-title">Validating an AI Rater for Socratic Questioning Fidelity</div>
+  <div class="card-short">SDRS scoring via Gemini 3 Pro (5-pass pipeline)</div>
+  <div class="card-body">
+    <div class="field"><span class="field-label">Authors:</span><span class="field-value">TBD</span></div>
+    <div class="field"><span class="field-label">Instrument:</span><span class="field-value">SDRS (Padesky 2020) adapted for text, 4 items 0-4</span></div>
+    <div class="field"><span class="field-label">Data:</span><span class="field-value">28 pipeline-ready transcripts (from 48 convos, 38 trainees)</span></div>
+    <div class="field"><span class="field-label">Status:</span><span class="field-value">Prompts v1.1 built, expert review pending</span></div>
+    <div class="next-action">
+      <div class="next-action-label">Next</div>
+      Expert review of prompts → run AI rating → calibration
+    </div>
+    <div class="folder-path">study/articles/6. check socratic fidelity/</div>
+  </div>
+</div>
+
+<!-- Article 7: Or experts -->
+<div class="card in-prep">
+  <div class="card-head">
+    <span class="card-num">#7</span>
+    <span class="chip orange">Analyzing</span>
+  </div>
+  <div class="card-title">Or Expert Evaluation — Foster Child Bot</div>
+  <div class="card-short">Tal leading expert evaluation</div>
+  <div class="card-body">
+    <div class="field"><span class="field-label">Lead:</span><span class="field-value">Tal (foster care track)</span></div>
+    <div class="field"><span class="field-label">Platform:</span><span class="field-value">elad-refoua.github.io/or-expert-eval/</span></div>
+    <div class="field"><span class="field-label">Rubric:</span><span class="field-value">5 Or + 4 Menton + 3 general + 5 feedback (1-5 Likert)</span></div>
+    <div class="metric-box">
+      <span class="metric-label">Qualtrics raw</span>
+      <span class="metric-val raw">59</span>
+      <span class="metric-label">Analysis</span>
+      <span class="metric-val" style="color: var(--orange)">Tal analyzing</span>
+    </div>
+    <div class="next-action">
+      <div class="next-action-label">Next</div>
+      Receive corrected Cesura PDFs → Tal completes analysis
+    </div>
+    <div class="folder-path">study/articles/7. Or for experts/ · SV_6kZsW4Ky4nPndno</div>
+  </div>
+</div>
+
+<!-- Article 8: CLPsych (Lia) -->
+<div class="card under-review">
+  <div class="card-head">
+    <span class="card-num">#8</span>
+    <span class="chip blue">Under Review</span>
+  </div>
+  <div class="card-title">Clinical Prompt Engineering: Encoding Clinical Knowledge into AI Simulations for Parent Training</div>
+  <div class="card-short">CPE methodology (CLPsych)</div>
+  <div class="card-body">
+    <div class="field"><span class="field-label">Authors:</span><span class="field-value">Holtzman (1st), <span class="authors-refoua">Refoua</span>, Elyoseph Z., Yirmiya, Elyoseph T., Linkovski, Rafaeli</span></div>
+    <div class="field"><span class="field-label">Venue:</span><span class="field-value"><span class="bold">CLPsych 2026</span></span></div>
+    <div class="field"><span class="field-label">Version:</span><span class="field-value">Manuscript v16</span></div>
+    <div class="field"><span class="field-label">Data:</span><span class="field-value">Lia Track 1: 132 sessions, 42 completed, Safety M=5.80, Realism M=4.60</span></div>
+    <div class="metric-box">
+      <span class="metric-label">Cesura</span>
+      <span class="metric-val usable">42 completed</span>
+      <span class="metric-label">Qualtrics</span>
+      <span class="metric-val zero">1 (on Cesura forms)</span>
+    </div>
+    <div class="next-action">
+      <div class="next-action-label">Next</div>
+      Wait for CLPsych reviewer decisions
+    </div>
+    <div class="folder-path">study/articles/8. Lia for CPE/</div>
+  </div>
+</div>
+
+<!-- Article 9: CPE vs LIWC -->
+<div class="card in-prep">
+  <div class="card-head">
+    <span class="card-num">#9</span>
+    <span class="chip orange">Protocol Ready</span>
+  </div>
+  <div class="card-title">Does Prompt Architecture Matter? Comparing CPE to Standard Prompting via LIWC</div>
+  <div class="card-short">Alice (GAD) + Luke (Depression) vs Client101 data</div>
+  <div class="card-body">
+    <div class="field"><span class="field-label">Authors:</span><span class="field-value">TBD (Elad + Yuval leading)</span></div>
+    <div class="field"><span class="field-label">Method:</span><span class="field-value">LIWC-22, ~16 therapists × 2 CPE conditions</span></div>
+    <div class="field"><span class="field-label">Prompts:</span><span class="field-value">25,114 words total (CPE vs 150-250 word flat)</span></div>
+    <div class="field"><span class="field-label">Status:</span><span class="field-value">Protocol + 6 prompt files (Mar 27); Cabrera Lozoya reference PDF added 04-16</span></div>
+    <div class="next-action">
+      <div class="next-action-label">Next</div>
+      Deploy Alice &amp; Luke on Cesura → recruit therapists
+    </div>
+    <div class="folder-path">study/articles/9. CPE vs flat prompt LIWC/</div>
+  </div>
+</div>
+
+<!-- Article 10: Narrative Review -->
+<div class="card in-prep">
+  <div class="card-head">
+    <span class="card-num">#10</span>
+    <span class="chip orange">In Prep</span>
+  </div>
+  <div class="card-title">LLM-Based Simulated Patients: A Five-Axis Narrative Review</div>
+  <div class="card-short">Interpersonal Skills Training in Healthcare &amp; Mental Health</div>
+  <div class="card-body">
+    <div class="field"><span class="field-label">Authors:</span><span class="field-value">Elyoseph Z.*, <span class="authors-refoua">Refoua*</span>, Holtzman, Haber, Fargeon, Elyoseph T., Linkovski, Yirmiya, Rafaeli</span></div>
+    <div class="field"><span class="field-label">Version:</span><span class="field-value">Manuscript v11</span></div>
+    <div class="field"><span class="field-label">Scope:</span><span class="field-value">5-axis framework for evaluating LLM simulated patients</span></div>
+    <div class="next-action">
+      <div class="next-action-label">Next</div>
+      Co-author pass → submit to target journal
+    </div>
+    <div class="folder-path">study/articles/10.narrative review/</div>
+  </div>
+</div>
+
+<!-- Article 11: Deep Persona -->
+<div class="card in-prep">
+  <div class="card-head">
+    <span class="card-num">#11</span>
+    <span class="chip orange">In Prep (TACL)</span>
+  </div>
+  <div class="card-title">Deep Persona: Three-Layered Psychological Architecture for Role-Playing Agents</div>
+  <div class="card-short">Theoretical/methodological — TACL target</div>
+  <div class="card-body">
+    <div class="field"><span class="field-label">Authors:</span><span class="field-value">Dror R. (1st), <span class="authors-refoua">Refoua</span>, Haber, Elyoseph Z., Solomon</span></div>
+    <div class="field"><span class="field-label">Venue:</span><span class="field-value">TACL (anonymous submission)</span></div>
+    <div class="field"><span class="field-label">Latest:</span><span class="field-value"><span class="bold">TACL_Deep_Persona (13).pdf</span> — Apr 16, 2026</span></div>
+    <div class="field"><span class="field-label">Relationship:</span><span class="field-value">Theoretical companion to Article 13 (empirical test)</span></div>
+    <div class="next-action">
+      <div class="next-action-label">Next</div>
+      Address TODOs: Adir (Persona Modeling §2.1), Rotem (AI-MH section), Appendix B background
+    </div>
+    <div class="folder-path">study/articles/11. Deep Persona/</div>
+  </div>
+</div>
+
+<!-- Article 12: UP Modules -->
+<div class="card running">
+  <div class="card-head">
+    <span class="card-num">#12</span>
+    <span class="chip purple">Actively Running</span>
+  </div>
+  <div class="card-title">UP Modules (M3, M4, M7) with Ethan Character</div>
+  <div class="card-short">Unified Protocol transdiagnostic simulation training</div>
+  <div class="card-body">
+    <div class="field"><span class="field-label">Authors:</span><span class="field-value">TBD</span></div>
+    <div class="field"><span class="field-label">Design:</span><span class="field-value">Pre-post 7-item efficacy × 3 modules + WAI-TECH (Q6)</span></div>
+    <div class="field"><span class="field-label">Sites:</span><span class="field-value">BIU (n≈16) + Haifa (Joy Bentov, ~60 students)</span></div>
+    <div class="field"><span class="field-label">Funnel:</span><span class="field-value">23 baseline → 25 S1 → 14 S2 → 13 S3 → 4 S3-end → 14 S4</span></div>
+    <div class="metric-box">
+      <span class="metric-label">Baseline</span>
+      <span class="metric-val big">23</span>
+      <span class="metric-label">S4 done</span>
+      <span class="metric-val usable">14</span>
+    </div>
+    <div class="next-action">
+      <div class="next-action-label">Next</div>
+      Continue Haifa rollout → reach full 3-session completion cohort
+    </div>
+    <div class="folder-path">~/Desktop/projects/UP simu/ · 7 Qualtrics surveys (SV_1FW... → SV_393...)</div>
+  </div>
+</div>
+
+<!-- Article 13: Prompt Compression -->
+<div class="card running">
+  <div class="card-head">
+    <span class="card-num">#13</span>
+    <span class="chip purple">Actively Running</span>
+  </div>
+  <div class="card-title">Prompt Compression Study — Empirical CPE Validation</div>
+  <div class="card-short">33K vs 3K blinded expert rating</div>
+  <div class="card-body">
+    <div class="field"><span class="field-label">Authors:</span><span class="field-value"><span class="authors-refoua">Refoua</span> (w/ Holtzman, Rafaeli supervising)</span></div>
+    <div class="field"><span class="field-label">Target:</span><span class="field-value">JMIR Medical Education (primary)</span></div>
+    <div class="field"><span class="field-label">Design:</span><span class="field-value">Pre-registered, within-subjects, 10 pairs × 14 items × 2 convos</span></div>
+    <div class="field"><span class="field-label">IRB:</span><span class="field-value">Amendment 1 to MENTI #290125444</span></div>
+    <div class="field"><span class="field-label">Platform:</span><span class="field-value">Live on GitHub Pages (prompt-compression-eval)</span></div>
+    <div class="field"><span class="field-label">Last activity:</span><span class="field-value">2026-04-16 (protocol, research-status.html, PDF ref added)</span></div>
+    <div class="next-action">
+      <div class="next-action-label">Next</div>
+      Yuval recruits raters → 10 experts rate all 20 conversations
+    </div>
+    <div class="folder-path">study/articles/13. Prompt Compression/</div>
+  </div>
+</div>
+
+</div>
+
+<!-- Key Metrics -->
+<div class="metrics-section">
+  <h2 class="section-title">Key Metrics &amp; Totals</h2>
+  <div class="metrics-grid">
+    <div class="metric-card">
+      <div class="num">~270</div>
+      <div class="label">Total analyzed N across MENTI studies</div>
+    </div>
+    <div class="metric-card">
+      <div class="num">964</div>
+      <div class="label">Total raw Qualtrics responses (all surveys)</div>
+    </div>
+    <div class="metric-card">
+      <div class="num">16</div>
+      <div class="label">Active Qualtrics surveys (9 core + 7 UP)</div>
+    </div>
+    <div class="metric-card">
+      <div class="num">13</div>
+      <div class="label">Articles in pipeline</div>
+    </div>
+    <div class="metric-card">
+      <div class="num">1</div>
+      <div class="label">Accepted (MentiParent → Sci Reports)</div>
+    </div>
+    <div class="metric-card">
+      <div class="num">2</div>
+      <div class="label">Under review (Foster, CLPsych)</div>
+    </div>
+  </div>
+</div>
+
+<!-- Qualtrics live table -->
+<div class="metrics-section">
+  <h2 class="section-title">Qualtrics Live Response Counts (AI_PSYCH account)</h2>
+  <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 10px; direction: ltr; text-align: left;">
+    <strong>Note:</strong> "auditable" = ALL responses (started, partial, complete). Usable N is typically much lower — e.g., Yoav has 290 raw but only 38 analyzed.
+  </p>
+  <table class="q-table">
+    <thead>
+      <tr><th>Bot / Study</th><th>Survey ID</th><th>Auditable</th><th>Analyzed</th><th>Status</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Yoav (Socratic)</strong></td><td><span class="sid">SV_039jMzxfdPX6yRU</span></td><td><span class="count changed">290 <span class="delta">+6</span></span></td><td>38</td><td>Recruiting</td></tr>
+      <tr><td>Julie (foster)</td><td><span class="sid">SV_eJ5kD9LnE0bfR7U</span></td><td><span class="count">71</span></td><td>46</td><td>Under review</td></tr>
+      <tr><td>Or (foster child)</td><td><span class="sid">SV_6kZsW4Ky4nPndno</span></td><td><span class="count">59</span></td><td>Tal analyzing</td><td>In prep</td></tr>
+      <tr><td>Danny-1</td><td><span class="sid">SV_4ZKQWeGytSdBEbk</span></td><td><span class="count">50</span></td><td>60 (different export)</td><td>Published</td></tr>
+      <tr><td>ICHILOV Bot 2</td><td><span class="sid">SV_3ekgYrNop44AMES</span></td><td><span class="count">47</span></td><td>~13</td><td>Side project</td></tr>
+      <tr><td>menti_test</td><td><span class="sid">SV_eFGhPljShwykLB4</span></td><td><span class="count">34</span></td><td>—</td><td>Test</td></tr>
+      <tr><td>UP Q1 (Skills M2+M3 Pre)</td><td><span class="sid">SV_5d5bi7YLyFODyCi</span></td><td><span class="count">25</span></td><td>—</td><td>Running</td></tr>
+      <tr><td><strong>UP Q-Pre (Baseline)</strong></td><td><span class="sid">SV_1FW32IWe6Q9i2HA</span></td><td><span class="count">23</span></td><td>—</td><td>Running</td></tr>
+      <tr><td>Danny-2</td><td><span class="sid">SV_9NoJO19hm2ACw0S</span></td><td><span class="count">21</span></td><td>?</td><td>Side</td></tr>
+      <tr><td>Rina (Assor)</td><td><span class="sid">SV_71cNAGWbJOvyfci</span></td><td><span class="count">17</span></td><td>?</td><td>Side</td></tr>
+      <tr><td>UP Q2 (Skills M2+M3 Post)</td><td><span class="sid">SV_06drpTr4j2OwkHY</span></td><td><span class="count">14</span></td><td>—</td><td>Running</td></tr>
+      <tr><td>UP Q3 (Skills M4+M5+M6 Pre)</td><td><span class="sid">SV_6DwRv3Tqdm347ZA</span></td><td><span class="count">14</span></td><td>—</td><td>Running</td></tr>
+      <tr><td>UP Q6+Post (Session 4)</td><td><span class="sid">SV_393lCnXELfyWBfM</span></td><td><span class="count">14</span></td><td>—</td><td>Running</td></tr>
+      <tr><td>UP Q4 (Skills M4+M5+M6 Post)</td><td><span class="sid">SV_0NhqUA32asHEw6O</span></td><td><span class="count">13</span></td><td>—</td><td>Running</td></tr>
+      <tr><td>UP Q5 (Skills M7 Pre)</td><td><span class="sid">SV_6rpAvQMIp6pOELk</span></td><td><span class="count">4</span></td><td>—</td><td>Running</td></tr>
+      <tr><td>Lia (Track 1 research)</td><td><span class="sid">SV_0wXR00x6HcR8o3I</span></td><td><span class="count zero">1</span></td><td>Cesura forms</td><td>CLPsych</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Studies needing attention -->
+<div class="metrics-section">
+  <h2 class="section-title">Studies Needing Attention</h2>
+  <div class="timeline">
+    <div class="timeline-item hot">
+      <div class="timeline-date">Active / Recruiting</div>
+      <div class="timeline-title">Article 5 (Yoav) — Socratic Dialogue</div>
+      <div class="timeline-desc">Currently N=38, target 65-82. Need ~30 more therapists. 290 raw responses but huge completion gap.</div>
+    </div>
+    <div class="timeline-item hot">
+      <div class="timeline-date">Active / Running</div>
+      <div class="timeline-title">Article 12 (UP Modules) — Ethan M3/M4/M7</div>
+      <div class="timeline-desc">Funnel dropoff visible: 23 baseline → 14 at S4. Haifa (Joy Bentov, ~60 students) should boost N. Monitor S3-end (currently only 4).</div>
+    </div>
+    <div class="timeline-item soon">
+      <div class="timeline-date">Active / Platform Live</div>
+      <div class="timeline-title">Article 13 (Prompt Compression) — 33K vs 3K</div>
+      <div class="timeline-desc">Yuval leading rater recruitment. Platform live on GitHub Pages. 14-item rubric finalized.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">Design Refined — Needs Pilot</div>
+      <div class="timeline-title">Article 3 (Evelyn Multi-Session)</div>
+      <div class="timeline-desc">Design clarified 2026-04-16: 3 weekly sessions, same themes/different situations. Measures: self-efficacy, PRFQ, PHQ-9, GAD-7, DASS, SDQ. Next: scenario variants + engagement mechanism + pilot.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">Needs Decision</div>
+      <div class="timeline-title">Article 6 (AI Rater Validation)</div>
+      <div class="timeline-desc">Expert review of prompts v1.1 pending. Need to finalize who reviews.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">Needs Deploy</div>
+      <div class="timeline-title">Article 9 (CPE vs LIWC)</div>
+      <div class="timeline-desc">Prompts ready (Alice + Luke, 25K words). Need Cesura deployment + therapist recruitment.</div>
+    </div>
+  </div>
+</div>
+
+<!-- What's Next Timeline -->
+<div class="metrics-section">
+  <h2 class="section-title">What's Next — Rough Timeline</h2>
+  <div class="timeline">
+    <div class="timeline-item hot">
+      <div class="timeline-date">Near-term (weeks)</div>
+      <div class="timeline-title">Production proofs — Article 1 (Scientific Reports)</div>
+      <div class="timeline-desc">MentiParent accepted — expect proofs and publication shortly.</div>
+    </div>
+    <div class="timeline-item soon">
+      <div class="timeline-date">Near-term (weeks)</div>
+      <div class="timeline-title">CLPsych 2026 decisions — Article 8</div>
+      <div class="timeline-desc">Yuval's CPE paper under review at CLPsych 2026.</div>
+    </div>
+    <div class="timeline-item soon">
+      <div class="timeline-date">Near-term (weeks)</div>
+      <div class="timeline-title">Foster Care reviewer feedback — Article 2</div>
+      <div class="timeline-desc">Tal's paper under review at Child Abuse &amp; Neglect.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">Q2 2026</div>
+      <div class="timeline-title">Deep Persona TACL submission — Article 11</div>
+      <div class="timeline-desc">Rotem finalizing; TACL_Deep_Persona (13).pdf dated Apr 16 is the current working draft.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">Q2-Q3 2026</div>
+      <div class="timeline-title">UP + Prompt Compression data collection complete</div>
+      <div class="timeline-desc">Articles 12 + 13 — both actively running, target full data within ~2 months.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">Q3 2026</div>
+      <div class="timeline-title">Narrative Review submission — Article 10</div>
+      <div class="timeline-desc">v11 exists; needs final co-author pass.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-date">Q3-Q4 2026</div>
+      <div class="timeline-title">CPE vs LIWC data collection — Article 9</div>
+      <div class="timeline-desc">Deploy Alice + Luke on Cesura → 16 therapists.</div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  MENTI Project · Developing AI Tools for Enhancing Mentalization Skills · Bar-Ilan University<br>
+  Israel Ministry of Innovation, Science and Technology · Grant #0008682 · IRB #290125444<br>
+  PI: Dr. Omer Linkovski · Lead Researcher: Elad Refoua · Dashboard last updated 2026-04-16<br>
+  Live at <a href="https://elad-refoua.github.io/menti-dashboard/" style="color: var(--accent);">elad-refoua.github.io/menti-dashboard</a>
+</footer>
+
+</div>
+</body>
+</html>

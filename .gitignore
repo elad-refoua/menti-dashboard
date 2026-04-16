@@ -1,0 +1,24 @@
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+nul
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*~
+
+# Node (if ever added)
+node_modules/
+
+# Python (if ever added)
+__pycache__/
+*.pyc
+
+# Sensitive
+.env
+.env.*
+*.key
+credentials.json
