@@ -466,8 +466,8 @@
     </div>
     <div style="text-align: left; direction: ltr;">
       <div style="color: var(--text-muted); font-size: 0.85rem;">Last Updated</div>
-      <div style="font-size: 1.4rem; font-weight: 700; color: var(--accent);">2026-04-24 PM</div>
-      <div style="color: var(--text-dim); font-size: 0.75rem; margin-top: 4px;">UP Module 4 DEPLOYED to Cesura · BIU + Haifa clean counts recomputed (57 baseline, 125 total clean of 241 raw)</div>
+      <div style="font-size: 1.4rem; font-weight: 700; color: var(--accent);">2026-04-24 evening</div>
+      <div style="color: var(--text-dim); font-size: 0.75rem; margin-top: 4px;">UP Module 4 DEPLOYED to Cesura · cross-site contamination audit done (2 confirmed leaks) · BIU Q1 N = 8 clean (was 10) · 57 baseline · 123 total clean of 241 raw · M3 link fix scheduled Sat night</div>
     </div>
   </div>
   <div class="live-note">
@@ -549,8 +549,9 @@
       <ul style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; line-height: 1.7;">
         <li>- Danny (Art 1): Karen in final proofing</li>
         <li>- Julie (Art 2): No response yet from Child Abuse &amp; Neglect</li>
-        <li>- UP funnel live (clean, 2026-04-24): <strong>57 baseline</strong> (18 BIU + 39 Haifa); BIU at S1 only so Q2-Q6+Post all 0</li>
-        <li>- UP M4 Cesura DEPLOYED 2026-04-24 (Claude); rollout Mon 2026-04-28 to Omer + Joy</li>
+        <li>- UP funnel live (clean, 2026-04-24 PM): <strong>57 baseline</strong> (18 BIU + 39 Haifa); BIU at S1 only so Q2-Q6+Post all 0</li>
+        <li>- Cross-site contamination audit (2026-04-24 evening): <strong>2 Haifa students filled BIU Q1 by mistake</strong> on 2026-04-20 (IDs 1450, 341152627). Both have proper Haifa Q1 — no Haifa data lost. Real BIU Q1 N = <strong>8</strong> (was 10). Real total clean = <strong>123</strong> (was 125). Reusable check script: <code>UP simu/docs/check_cross_site_contamination.py</code>.</li>
+        <li>- UP M4 Cesura DEPLOYED 2026-04-24 (Claude); rollout Mon 2026-04-28 to Omer + Joy. <strong>HARD FREEZE on Cesura until Sat night 2026-04-25</strong> — Elad will fix M3 intro link (cause of contamination) + M4 intro/feedback/prompt edits together.</li>
         <li>- M7 arm awaiting deployment — runbook ready (<code>cesura-deployment/DEPLOY_NEW_MODULE_RUNBOOK.md</code>)</li>
         <li>- Haifa (Joy Bentov): 39 clean baseline of 50 raw; S3/S4 not yet run</li>
         <li>- Audit: 116 test/staff/preview responses removed from 241 raw (3 IPs added to block-list 2026-04-24; prior 147-clean figure was inflated)</li>
@@ -874,8 +875,8 @@
   <div class="card-body">
     <div class="field"><span class="field-label">Authors:</span><span class="field-value">TBD</span></div>
     <div class="field"><span class="field-label">Design:</span><span class="field-value">Pre-post 7-item efficacy × 3 modules + WAI-TECH (Q6)</span></div>
-    <div class="field"><span class="field-label">Sites:</span><span class="field-value"><strong>BIU (18 clean Q-Pre, 10 clean Q1; Session 1 only so Q2-Q6+Post all 0)</strong> + <strong>Haifa (39 clean Q-Pre of 50 raw, Joy Bentov)</strong> + Anholt's lab (<strong>Elad reached out 2026-04-17</strong>)</span></div>
-    <div class="field"><span class="field-label">Funnel (clean, live 2026-04-24):</span><span class="field-value">BIU: 18→10→0→0→0→0→0 · Haifa: 39→35→23→0→0→0→0 · <em>raw auditable: 241 across 14 surveys; 116 test responses removed (added 3 IPs to block-list today)</em></span></div>
+    <div class="field"><span class="field-label">Sites:</span><span class="field-value"><strong>BIU (18 clean Q-Pre, 8 clean Q1 after cross-site cleanup; Session 1 only so Q2-Q6+Post all 0)</strong> + <strong>Haifa (39 clean Q-Pre of 50 raw, Joy Bentov)</strong> + Anholt's lab (<strong>Elad reached out 2026-04-17</strong>)</span></div>
+    <div class="field"><span class="field-label">Funnel (clean, live 2026-04-24 evening):</span><span class="field-value">BIU: 18→8→0→0→0→0→0 (Q1: 10 raw clean → 8 after dropping 2 cross-site leaks) · Haifa: 39→35→23→0→0→0→0 · <em>raw auditable: 241 across 14 surveys; 118 removed (116 test/staff/preview + 2 cross-site contamination)</em></span></div>
     <div class="field"><span class="field-label">Attrition:</span><span class="field-value">88% S1 retention; pre-M3-sim filled ratio at BIU = 56%; Haifa in-class ratio higher. Q2-Q6+Post cohorts yet to materialize (BIU at Session 1)</span></div>
     <div class="field"><span class="field-label">Blocker:</span><span class="field-value"><strong>Ethan M4 DEPLOYED 2026-04-24</strong> (UUID b8058918-eba6-45de-8981-cebcd0a8b0ba); M7 still pending. Runbook ready at <code>cesura-deployment/DEPLOY_NEW_MODULE_RUNBOOK.md</code></span></div>
     <div class="metric-box">
@@ -888,7 +889,7 @@
     </div>
     <div class="next-action">
       <div class="next-action-label">Next</div>
-      <strong>Elad final review Sat eve 2026-04-25 / Sun AM 2026-04-26 · work-spaces prepared for Joy (Haifa) + Omer (BIU) · Shaked final check Sun AM · Mon 2026-04-28 rollout to BIU + Haifa Session 2 · deploy M7 when Elad ready (runbook ready)</strong>
+      <strong>HARD FREEZE on Cesura until Sat night 2026-04-25.</strong> On Motzei Shabbat, fix together: (1) M3 intro — add Haifa link (cause of contamination), (2) M4 intro — split into 2 messages with site-specific BIU + Haifa links, (3) M4 feedback — small edits (Elad will specify), (4) M4 prompt — small edits (Elad will specify), (5) decide on the 2 contaminated BIU Q1 responses (recommend drop), (6) implement cross-site dedup pass in <code>filter_test_responses.py</code>, (7) prepare Cesura workspaces for Joy + Omer, (8) Sun AM: Shaked final check. <strong>Mon 2026-04-28: rollout to BIU + Haifa Session 2.</strong> M7 deploy when Elad ready (runbook ready).
     </div>
     <div class="folder-path">~/Desktop/projects/UP simu/ · 7 Qualtrics surveys (SV_1FW... → SV_393...)</div>
   </div>
@@ -1001,7 +1002,7 @@
         </thead>
         <tbody>
           <tr><td><strong>Q-Pre</strong> — Baseline + Demographics</td><td><span class="sid">SV_1FW32IWe6Q9i2HA</span></td><td><span class="count" style="color: var(--accent);">18</span> <span style="color: var(--text-dim); font-size: 0.78rem;">/ 28 raw</span></td><td>100%</td></tr>
-          <tr><td>Q1 — Skills M2+M3 Pre (S1 end)</td><td><span class="sid">SV_5d5bi7YLyFODyCi</span></td><td><span class="count">10</span> <span style="color: var(--text-dim); font-size: 0.78rem;">/ 14 raw</span></td><td>56%</td></tr>
+          <tr><td>Q1 — Skills M2+M3 Pre (S1 end)</td><td><span class="sid">SV_5d5bi7YLyFODyCi</span></td><td><span class="count">8</span> <span style="color: var(--text-dim); font-size: 0.78rem;">/ 14 raw <em>(10 raw clean → 8 after cross-site cleanup)</em></span></td><td>44%</td></tr>
           <tr><td>Q2 — Skills M2+M3 Post + Sim M3</td><td><span class="sid">SV_06drpTr4j2OwkHY</span></td><td><span class="count zero">0</span> <span style="color: var(--text-dim); font-size: 0.78rem;">/ 16 raw</span> <span class="delta" style="color: var(--text-dim); font-size: 0.72rem;">awaiting S2</span></td><td>0%</td></tr>
           <tr><td>Q3 — Skills M4+M5+M6 Pre</td><td><span class="sid">SV_6DwRv3Tqdm347ZA</span></td><td><span class="count zero">0</span> <span style="color: var(--text-dim); font-size: 0.78rem;">/ 16 raw</span> <span class="delta" style="color: var(--text-dim); font-size: 0.72rem;">awaiting S2</span></td><td>0%</td></tr>
           <tr><td>Q4 — Skills M4+M5+M6 Post + Sim M4</td><td><span class="sid">SV_0NhqUA32asHEw6O</span></td><td><span class="count zero">0</span> <span style="color: var(--text-dim); font-size: 0.78rem;">/ 15 raw</span> <span class="delta" style="color: var(--text-dim); font-size: 0.72rem;">awaiting S3</span></td><td>0%</td></tr>
@@ -1010,7 +1011,7 @@
         </tbody>
       </table>
       <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 10px; direction: ltr; text-align: left;">
-        <strong>BIU is at Session 1 only.</strong> Q2-Q6+Post show 0 clean because no participant has reached those sessions yet — all raw responses on those surveys came from team testing. Pre-M3-sim (Q1) filled ratio = 56% (10 of 18 baseline). <strong>Clean N</strong> = real participants after removing test/staff/preview responses; today (2026-04-24) Elad added 3 IPs (<code>77.125.150.165</code>, <code>212.199.151.70</code>, <code>77.137.77.124</code>) to the block-list after catching that yesterday's run had inflated Q2-Q6+Post.
+        <strong>BIU is at Session 1 only.</strong> Q2-Q6+Post show 0 clean because no participant has reached those sessions yet — all raw responses on those surveys came from team testing. Pre-M3-sim (Q1) filled ratio = 44% (8 of 18 baseline, after cross-site cleanup). <strong>Clean N</strong> = real participants after removing test/staff/preview responses; today (2026-04-24 PM) Elad added 3 IPs (<code>77.125.150.165</code>, <code>212.199.151.70</code>, <code>77.137.77.124</code>) to the block-list after catching that yesterday's run had inflated Q2-Q6+Post. <strong>2026-04-24 evening — cross-site contamination audit:</strong> 2 Haifa students (IDs 1450, 341152627) filled BIU Q1 by mistake on Haifa Session 2 day (2026-04-20, ~7-12 min after their correct Haifa Q1). Both have proper Haifa Q1 — no Haifa data lost, both BIU Q1 leaks are pure duplicates. <strong>Real BIU Q1 N drops from 10 → 8 clean. Real total clean drops 125 → 123.</strong> M3 link fix (add Haifa link to M3 intro — the cause of contamination) scheduled Sat night 2026-04-25. Reusable check script: <code>UP simu/docs/check_cross_site_contamination.py</code> — run after every session day.
       </p>
     </div>
 
@@ -1040,7 +1041,7 @@
   </div>
 
   <p style="color: var(--text-dim); font-size: 0.78rem; margin-top: 12px; font-style: italic; direction: ltr; text-align: left;">
-    Total UP participant responses (clean): <strong style="color: var(--accent);">28</strong> BIU + <strong style="color: var(--accent-2);">97</strong> Haifa = <strong>125</strong> real responses across 14 surveys. Raw auditable: 241. Removed: 116 test/preview/staff/click-through responses (audit CSV: <code>UP simu/docs/test_response_audit_2026-04-23.csv</code>). Baseline clean enrolled: <strong>57</strong> unique participants (18 BIU + 39 Haifa Q-Pre). <em>Recomputed 2026-04-24 after adding 3 test IPs to block-list — previous reports of 147 clean were inflated.</em>
+    Total UP participant responses (clean): <strong style="color: var(--accent);">26</strong> BIU + <strong style="color: var(--accent-2);">97</strong> Haifa = <strong>123</strong> real responses across 14 surveys. Raw auditable: 241. Removed: 118 (116 test/preview/staff/click-through + 2 cross-site contamination — audit CSV: <code>UP simu/docs/test_response_audit_2026-04-23.csv</code>; cross-site check: <code>UP simu/docs/check_cross_site_contamination.py</code>). Baseline clean enrolled: <strong>57</strong> unique participants (18 BIU + 39 Haifa Q-Pre). <em>Recomputed 2026-04-24 evening after cross-site audit (2 Haifa→BIU Q1 leaks). Earlier counts: 147 (morning) → 125 (afternoon) → 123 (evening).</em>
   </p>
 </div>
 
@@ -1056,7 +1057,7 @@
     <div class="timeline-item hot">
       <div class="timeline-date">Active / Running (live 2026-04-24)</div>
       <div class="timeline-title">Article 12 (UP Modules) — Ethan M3/M4/M7 · 2 sites</div>
-      <div class="timeline-desc"><strong>Next action:</strong> Elad final review Sat eve 2026-04-25 / Sun AM 2026-04-26 · Cesura work-spaces prepared for Joy (Haifa) + Omer (BIU) · Shaked final check Sun AM · <strong>Mon 2026-04-28 rollout to BIU + Haifa Session 2</strong>. Blocking — if workspaces aren't live by Sun AM, Monday's M4 session can't run.<br><strong>UP Module 4 DEPLOYED 2026-04-24</strong> (Claude, UUID <code>b8058918-eba6-45de-8981-cebcd0a8b0ba</code>). M7 still pending — runbook ready at <code>cesura-deployment/DEPLOY_NEW_MODULE_RUNBOOK.md</code>.<br><strong>BIU (at-home, clean):</strong> 18→10→0→0→0→0→0 (Session 1 only).<br><strong>Haifa (in-class, activated 2026-04-12, clean):</strong> 39→35→23→0→0→0→0. Q-Pre through Q2 healthy (S1–S2 done); Q3+ awaiting S3/S4 class sessions.<br><em>Clean counts exclude 116 preview/staff/test-IP responses out of 241 raw (3 IPs added to block-list 2026-04-24; previous 147 figure was inflated). Audit: test_response_audit_2026-04-23.csv.</em></div>
+      <div class="timeline-desc"><strong>Next action — HARD FREEZE on Cesura until Sat night 2026-04-25.</strong> On Motzei Shabbat 2026-04-25, Elad will fix together: (1) M3 intro — add Haifa link (cause of contamination); (2) M4 intro — split into 2 messages with site-specific BIU + Haifa links; (3) M4 feedback — small edits (Elad will specify); (4) M4 prompt — small edits (Elad will specify); (5) decide on the 2 contaminated BIU Q1 responses (recommend drop); (6) implement cross-site dedup pass in <code>filter_test_responses.py</code>; (7) prepare Cesura workspaces for Joy + Omer; (8) Sun AM 2026-04-26: Shaked final check. <strong>Mon 2026-04-28: rollout to BIU + Haifa Session 2.</strong> Blocking — if workspaces aren't live by Sun AM, Monday's M4 session can't run.<br><strong>UP Module 4 DEPLOYED 2026-04-24</strong> (Claude, UUID <code>b8058918-eba6-45de-8981-cebcd0a8b0ba</code>). M7 still pending — runbook ready at <code>cesura-deployment/DEPLOY_NEW_MODULE_RUNBOOK.md</code>.<br><strong>BIU (at-home, clean):</strong> 18→8→0→0→0→0→0 (Session 1 only; Q1: 10 raw clean → 8 after dropping 2 cross-site leaks).<br><strong>Haifa (in-class, activated 2026-04-12, clean):</strong> 39→35→23→0→0→0→0. Q-Pre through Q2 healthy (S1–S2 done); Q3+ awaiting S3/S4 class sessions.<br><strong>Cross-site contamination audit (2026-04-24 evening):</strong> 2 Haifa students filled BIU Q1 by mistake on 2026-04-20 (IDs 1450, 341152627). Both have proper Haifa Q1 — no Haifa data lost. Real BIU Q1 N = <strong>8</strong> (was 10). Real total clean = <strong>123</strong> (was 125). M3 link fix scheduled Sat night. Cleanup script: <code>UP simu/docs/check_cross_site_contamination.py</code>.<br><em>Clean counts exclude 118 of 241 raw responses (116 test/staff/preview from 2026-04-24 PM run + 2 cross-site contamination from 2026-04-24 evening audit). Earlier counts: 147 (morning) → 125 (afternoon) → 123 (evening).</em></div>
     </div>
     <div class="timeline-item soon">
       <div class="timeline-date">Active / Platform Live</div>
@@ -1127,7 +1128,7 @@
   MENTI Project · Developing AI Tools for Enhancing Mentalization Skills · Bar-Ilan University + University of Haifa<br>
   Israel Ministry of Innovation, Science and Technology · Grant #0008682 · IRB #290125444<br>
   Co-PIs: Prof. Eshkol Rafaeli (BIU) · Dr. Omer Linkovski (BIU) · Prof. Zohar Elyoseph (Haifa) · Programme PI: Elad Refoua · Co-investigator: Dr. Karen Yirmiya (UCL/BGU) · Senior theoretical collaborator: Prof. Peter Fonagy (Anna Freud Centre) · Research coordinator: Yuval Holzman<br>
-  Dashboard last updated 2026-04-24 evening. UP Module 4 DEPLOYED to Cesura (UUID b8058918-eba6-45de-8981-cebcd0a8b0ba). Next action: Elad final review Sat eve 2026-04-25 / Sun AM 2026-04-26, then Cesura work-spaces prepared for Joy (Haifa) + Omer (BIU), then Shaked final check Sun AM, then Mon 2026-04-28 rollout to BIU + Haifa Session 2 — BLOCKING. UP funnel CLEAN counts recomputed after 3 test IPs added to block-list — 116 of 241 raw removed (prior 147-clean figure was inflated). True clean baseline: 57 (18 BIU + 39 Haifa). Leadership framing corrected 2026-04-24.<br>
+  Dashboard last updated 2026-04-24 evening (post cross-site contamination audit). UP Module 4 DEPLOYED to Cesura (UUID b8058918-eba6-45de-8981-cebcd0a8b0ba). HARD FREEZE on Cesura until Sat night 2026-04-25. On Motzei Shabbat: Elad fixes M3 intro link (cause of contamination) + M4 intro/feedback/prompt edits + Cesura workspaces for Joy + Omer (full 8-item agenda in Article 12 next-action). Sun AM Shaked check, Mon 2026-04-28 rollout. UP funnel CLEAN counts: 241 raw → 123 clean after removing 118 (116 test/staff/preview + 2 cross-site contamination). Earlier counts: 147 morning → 125 afternoon → 123 evening. True clean baseline: 57 (18 BIU + 39 Haifa). Real BIU Q1 N = 8 (was 10). Cross-site check script: UP simu/docs/check_cross_site_contamination.py. Leadership framing corrected 2026-04-24.<br>
   Live at <a href="https://elad-refoua.github.io/menti-dashboard/" style="color: var(--accent);">elad-refoua.github.io/menti-dashboard</a>
 </footer>
 
