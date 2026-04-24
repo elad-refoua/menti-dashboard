@@ -466,8 +466,8 @@
     </div>
     <div style="text-align: left; direction: ltr;">
       <div style="color: var(--text-muted); font-size: 0.85rem;">Last Updated</div>
-      <div style="font-size: 1.4rem; font-weight: 700; color: var(--accent);">2026-04-24</div>
-      <div style="color: var(--text-dim); font-size: 0.75rem; margin-top: 4px;">Leadership framing corrected · Three co-PIs: Rafaeli, Linkovski, Elyoseph</div>
+      <div style="font-size: 1.4rem; font-weight: 700; color: var(--accent);">2026-04-24 PM</div>
+      <div style="color: var(--text-dim); font-size: 0.75rem; margin-top: 4px;">UP Module 4 DEPLOYED to Cesura · BIU + Haifa clean counts recomputed (57 baseline, 125 total clean of 241 raw)</div>
     </div>
   </div>
   <div class="live-note">
@@ -535,7 +535,7 @@
     <div style="background: rgba(30,41,59,0.6); border-left: 3px solid var(--orange); border-radius: 8px; padding: 14px 16px;">
       <div style="font-weight: 600; color: var(--orange); margin-bottom: 6px;">Action Items (owners)</div>
       <ul style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; line-height: 1.7;">
-        <li>- <strong>Elad:</strong> Upload Ethan M4 + M7 to Cesura (HIGH priority)</li>
+        <li>- <strong>Elad:</strong> <s>Upload Ethan M4</s> ✓ DONE 2026-04-24 (Claude built, UUID b8058918, Mon rollout) · M7 still pending (runbook ready)</li>
         <li>- <strong>Elad:</strong> Reached out to Gideon Anholt for 3rd site (done 04-17)</li>
         <li>- <strong>Yuval:</strong> Build Yoav questionnaire with email</li>
         <li>- <strong>Yuval:</strong> Prepare Evelyn 1/2/3 scenarios</li>
@@ -549,10 +549,11 @@
       <ul style="list-style: none; padding: 0; margin: 0; font-size: 0.9rem; line-height: 1.7;">
         <li>- Danny (Art 1): Karen in final proofing</li>
         <li>- Julie (Art 2): No response yet from Child Abuse &amp; Neglect</li>
-        <li>- UP funnel live (clean): 58 baseline (18 BIU + 40 Haifa), 50% BIU S1→S2 attrition</li>
-        <li>- UP M7 arm (Q5) stuck at 1 clean — gated by Ethan M7 deployment</li>
-        <li>- Haifa (Joy Bentov): 40 clean baseline of 60 enrolled; S3/S4 not yet run</li>
-        <li>- Audit: 94 test/staff/preview responses removed from 241 raw</li>
+        <li>- UP funnel live (clean, 2026-04-24): <strong>57 baseline</strong> (18 BIU + 39 Haifa); BIU at S1 only so Q2-Q6+Post all 0</li>
+        <li>- UP M4 Cesura DEPLOYED 2026-04-24 (Claude); rollout Mon 2026-04-28 to Omer + Joy</li>
+        <li>- M7 arm awaiting deployment — runbook ready (<code>cesura-deployment/DEPLOY_NEW_MODULE_RUNBOOK.md</code>)</li>
+        <li>- Haifa (Joy Bentov): 39 clean baseline of 50 raw; S3/S4 not yet run</li>
+        <li>- Audit: 116 test/staff/preview responses removed from 241 raw (3 IPs added to block-list 2026-04-24; prior 147-clean figure was inflated)</li>
       </ul>
     </div>
   </div>
@@ -873,21 +874,21 @@
   <div class="card-body">
     <div class="field"><span class="field-label">Authors:</span><span class="field-value">TBD</span></div>
     <div class="field"><span class="field-label">Design:</span><span class="field-value">Pre-post 7-item efficacy × 3 modules + WAI-TECH (Q6)</span></div>
-    <div class="field"><span class="field-label">Sites:</span><span class="field-value"><strong>BIU (~10 clean, Elad)</strong> + <strong>Haifa (~40 clean baseline of 60, Joy Bentov)</strong> + Anholt's lab (<strong>Elad reached out 2026-04-17</strong>)</span></div>
-    <div class="field"><span class="field-label">Funnel (clean, live 2026-04-24):</span><span class="field-value">BIU: 18→10→5→4→4→1→5 · Haifa: 40→36→24→0→0→0→0 · <em>raw auditable: 241 across 14 surveys; 94 test responses removed</em></span></div>
-    <div class="field"><span class="field-label">Attrition:</span><span class="field-value">88% S1 retention; <strong>52% at S1→S2 (major dropoff)</strong>; Q5 stuck at 4 because Ethan M7 not yet deployed</span></div>
-    <div class="field"><span class="field-label">Blocker:</span><span class="field-value"><strong>Ethan M4 + M7 not yet uploaded to Cesura</strong> (Elad owns, HIGH priority)</span></div>
+    <div class="field"><span class="field-label">Sites:</span><span class="field-value"><strong>BIU (18 clean Q-Pre, 10 clean Q1; Session 1 only so Q2-Q6+Post all 0)</strong> + <strong>Haifa (39 clean Q-Pre of 50 raw, Joy Bentov)</strong> + Anholt's lab (<strong>Elad reached out 2026-04-17</strong>)</span></div>
+    <div class="field"><span class="field-label">Funnel (clean, live 2026-04-24):</span><span class="field-value">BIU: 18→10→0→0→0→0→0 · Haifa: 39→35→23→0→0→0→0 · <em>raw auditable: 241 across 14 surveys; 116 test responses removed (added 3 IPs to block-list today)</em></span></div>
+    <div class="field"><span class="field-label">Attrition:</span><span class="field-value">88% S1 retention; pre-M3-sim filled ratio at BIU = 56%; Haifa in-class ratio higher. Q2-Q6+Post cohorts yet to materialize (BIU at Session 1)</span></div>
+    <div class="field"><span class="field-label">Blocker:</span><span class="field-value"><strong>Ethan M4 DEPLOYED 2026-04-24</strong> (UUID b8058918-eba6-45de-8981-cebcd0a8b0ba); M7 still pending. Runbook ready at <code>cesura-deployment/DEPLOY_NEW_MODULE_RUNBOOK.md</code></span></div>
     <div class="metric-box">
       <span class="metric-label">Baseline</span>
-      <span class="metric-val big">35</span>
+      <span class="metric-val big">57</span>
       <span class="metric-label">M7 Pre</span>
-      <span class="metric-val zero">4</span>
+      <span class="metric-val zero">0</span>
       <span class="metric-label">S4 done</span>
-      <span class="metric-val usable">18</span>
+      <span class="metric-val zero">0</span>
     </div>
     <div class="next-action">
       <div class="next-action-label">Next</div>
-      <strong>Upload Ethan M4 + M7 to Cesura (Elad, ASAP)</strong> · compute BIU vs Haifa split from logs · wait on Anholt
+      <strong>Final review of M4 by Elad; Sun AM check with Shaked; Mon rollout to Omer + Joy; deploy M7 when Elad ready (runbook ready)</strong>
     </div>
     <div class="folder-path">~/Desktop/projects/UP simu/ · 7 Qualtrics surveys (SV_1FW... → SV_393...)</div>
   </div>
@@ -1001,15 +1002,15 @@
         <tbody>
           <tr><td><strong>Q-Pre</strong> — Baseline + Demographics</td><td><span class="sid">SV_1FW32IWe6Q9i2HA</span></td><td><span class="count" style="color: var(--accent);">18</span> <span style="color: var(--text-dim); font-size: 0.78rem;">/ 28 raw</span></td><td>100%</td></tr>
           <tr><td>Q1 — Skills M2+M3 Pre (S1 end)</td><td><span class="sid">SV_5d5bi7YLyFODyCi</span></td><td><span class="count">10</span> <span style="color: var(--text-dim); font-size: 0.78rem;">/ 14 raw</span></td><td>56%</td></tr>
-          <tr><td>Q2 — Skills M2+M3 Post + Sim M3</td><td><span class="sid">SV_06drpTr4j2OwkHY</span></td><td><span class="count" style="color: var(--orange);">5</span> <span style="color: var(--text-dim); font-size: 0.78rem;">/ 16 raw</span></td><td>28%</td></tr>
-          <tr><td>Q3 — Skills M4+M5+M6 Pre</td><td><span class="sid">SV_6DwRv3Tqdm347ZA</span></td><td><span class="count" style="color: var(--orange);">4</span> <span style="color: var(--text-dim); font-size: 0.78rem;">/ 16 raw</span></td><td>22%</td></tr>
-          <tr><td>Q4 — Skills M4+M5+M6 Post + Sim M4</td><td><span class="sid">SV_0NhqUA32asHEw6O</span></td><td><span class="count" style="color: var(--orange);">4</span> <span style="color: var(--text-dim); font-size: 0.78rem;">/ 15 raw</span></td><td>22%</td></tr>
-          <tr><td>Q5 — Skills M7 Pre</td><td><span class="sid">SV_6rpAvQMIp6pOELk</span></td><td><span class="count zero">1 <span style="color: var(--text-dim); font-size: 0.78rem;">/ 4 raw</span> <span class="delta" style="color: var(--red);">M7 sim missing</span></span></td><td>6%</td></tr>
-          <tr><td>Q6+Post — M7 + Post measures</td><td><span class="sid">SV_393lCnXELfyWBfM</span></td><td><span class="count">5</span> <span style="color: var(--text-dim); font-size: 0.78rem;">/ 18 raw</span></td><td>28%</td></tr>
+          <tr><td>Q2 — Skills M2+M3 Post + Sim M3</td><td><span class="sid">SV_06drpTr4j2OwkHY</span></td><td><span class="count zero">0</span> <span style="color: var(--text-dim); font-size: 0.78rem;">/ 16 raw</span> <span class="delta" style="color: var(--text-dim); font-size: 0.72rem;">awaiting S2</span></td><td>0%</td></tr>
+          <tr><td>Q3 — Skills M4+M5+M6 Pre</td><td><span class="sid">SV_6DwRv3Tqdm347ZA</span></td><td><span class="count zero">0</span> <span style="color: var(--text-dim); font-size: 0.78rem;">/ 16 raw</span> <span class="delta" style="color: var(--text-dim); font-size: 0.72rem;">awaiting S2</span></td><td>0%</td></tr>
+          <tr><td>Q4 — Skills M4+M5+M6 Post + Sim M4</td><td><span class="sid">SV_0NhqUA32asHEw6O</span></td><td><span class="count zero">0</span> <span style="color: var(--text-dim); font-size: 0.78rem;">/ 15 raw</span> <span class="delta" style="color: var(--text-dim); font-size: 0.72rem;">awaiting S3</span></td><td>0%</td></tr>
+          <tr><td>Q5 — Skills M7 Pre</td><td><span class="sid">SV_6rpAvQMIp6pOELk</span></td><td><span class="count zero">0 <span style="color: var(--text-dim); font-size: 0.78rem;">/ 4 raw</span> <span class="delta" style="color: var(--text-dim); font-size: 0.72rem;">awaiting S3</span></span></td><td>0%</td></tr>
+          <tr><td>Q6+Post — M7 + Post measures</td><td><span class="sid">SV_393lCnXELfyWBfM</span></td><td><span class="count zero">0</span> <span style="color: var(--text-dim); font-size: 0.78rem;">/ 18 raw</span> <span class="delta" style="color: var(--text-dim); font-size: 0.72rem;">awaiting S4</span></td><td>0%</td></tr>
         </tbody>
       </table>
       <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 10px; direction: ltr; text-align: left;">
-        <strong>Major attrition S1→S2</strong> (56% → 28% clean). <strong>M7 arm blocked</strong>: Ethan M4 + M7 Cesura deployment pending. <strong>Clean N</strong> = real participants after removing 61 test responses (preview, staff emails, click-throughs < 60s, internal test IP 176.228.89.10).
+        <strong>BIU is at Session 1 only.</strong> Q2-Q6+Post show 0 clean because no participant has reached those sessions yet — all raw responses on those surveys came from team testing. Pre-M3-sim (Q1) filled ratio = 56% (10 of 18 baseline). <strong>Clean N</strong> = real participants after removing test/staff/preview responses; today (2026-04-24) Elad added 3 IPs (<code>77.125.150.165</code>, <code>212.199.151.70</code>, <code>77.137.77.124</code>) to the block-list after catching that yesterday's run had inflated Q2-Q6+Post.
       </p>
     </div>
 
@@ -1022,9 +1023,9 @@
           <tr><th>Step</th><th>Survey ID</th><th>N (clean / raw)</th><th>Retention (clean)</th></tr>
         </thead>
         <tbody>
-          <tr><td><strong>Q-Pre</strong> — Baseline (S1)</td><td><span class="sid">SV_eVuizrdMU3XiQJw</span></td><td><span class="count" style="color: var(--accent-2);">40</span> <span style="color: var(--text-dim); font-size: 0.78rem;">/ 50 raw</span></td><td>100%</td></tr>
-          <tr><td>Q1 — Skills M2+M3 Pre (S2 mid)</td><td><span class="sid">SV_883j84tbkSJvvv0</span></td><td><span class="count">36</span> <span style="color: var(--text-dim); font-size: 0.78rem;">/ 40 raw</span></td><td>90%</td></tr>
-          <tr><td>Q2 — Skills M2+M3 Post + Sim M3 (S2 end)</td><td><span class="sid">SV_ezZMthvwK4ruSgu</span></td><td><span class="count">24</span> <span style="color: var(--text-dim); font-size: 0.78rem;">/ 27 raw</span></td><td>60%</td></tr>
+          <tr><td><strong>Q-Pre</strong> — Baseline (S1)</td><td><span class="sid">SV_eVuizrdMU3XiQJw</span></td><td><span class="count" style="color: var(--accent-2);">39</span> <span style="color: var(--text-dim); font-size: 0.78rem;">/ 50 raw</span></td><td>100%</td></tr>
+          <tr><td>Q1 — Skills M2+M3 Pre (S2 mid)</td><td><span class="sid">SV_883j84tbkSJvvv0</span></td><td><span class="count">35</span> <span style="color: var(--text-dim); font-size: 0.78rem;">/ 40 raw</span></td><td>90%</td></tr>
+          <tr><td>Q2 — Skills M2+M3 Post + Sim M3 (S2 end)</td><td><span class="sid">SV_ezZMthvwK4ruSgu</span></td><td><span class="count">23</span> <span style="color: var(--text-dim); font-size: 0.78rem;">/ 27 raw</span></td><td>59%</td></tr>
           <tr><td>Q3 — Skills M4+M5 Pre (S3 mid)</td><td><span class="sid">SV_57Kz4ReKs6LWEHI</span></td><td><span class="count zero">0</span> <span style="color: var(--text-dim); font-size: 0.78rem;">/ 3 raw</span></td><td>0%</td></tr>
           <tr><td>Q4 — Skills M4+M5 Post + Sim M4 (S3 end)</td><td><span class="sid">SV_0H63k15JNgU7vkW</span></td><td><span class="count zero">0</span> <span style="color: var(--text-dim); font-size: 0.78rem;">/ 3 raw</span></td><td>0%</td></tr>
           <tr><td>Q5 — Skills M6+M7 Pre (S4 mid)</td><td><span class="sid">SV_daMYIikz8NoeL9Y</span></td><td><span class="count zero">0</span> <span style="color: var(--text-dim); font-size: 0.78rem;">/ 4 raw</span></td><td>0%</td></tr>
@@ -1032,14 +1033,14 @@
         </tbody>
       </table>
       <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 10px; direction: ltr; text-align: left;">
-        <strong>Q-Pre → Q2 clean: 40 → 36 → 24 (100→90→60% retention).</strong> Q3+ sits at zero clean — S3/S4 sessions haven't yet happened (Haifa cohort only activated 2026-04-12). The few raw responses on Q3–Q6 are all from the internal test IP, hence 0 clean participants. <strong>Clean N</strong> removes 33 test responses across this cohort.
+        <strong>Q-Pre → Q2 clean: 39 → 35 → 23 (100 → 90 → 59% retention).</strong> Q3+ sits at zero clean — S3/S4 sessions haven't yet happened (Haifa cohort only activated 2026-04-12). The few raw responses on Q3–Q6 are all from internal test IPs, hence 0 clean participants.
       </p>
     </div>
 
   </div>
 
   <p style="color: var(--text-dim); font-size: 0.78rem; margin-top: 12px; font-style: italic; direction: ltr; text-align: left;">
-    Total UP participant responses (clean): <strong style="color: var(--accent);">47</strong> BIU + <strong style="color: var(--accent-2);">100</strong> Haifa = <strong>147</strong> real participants across 14 surveys. Raw auditable: 265. Removed: 94 test/preview/staff/click-through responses (audit CSV: <code>UP simu/docs/test_response_audit_2026-04-23.csv</code>). Baseline clean enrolled: <strong>58</strong> unique participants (18 BIU + 40 Haifa Q-Pre).
+    Total UP participant responses (clean): <strong style="color: var(--accent);">28</strong> BIU + <strong style="color: var(--accent-2);">97</strong> Haifa = <strong>125</strong> real responses across 14 surveys. Raw auditable: 241. Removed: 116 test/preview/staff/click-through responses (audit CSV: <code>UP simu/docs/test_response_audit_2026-04-23.csv</code>). Baseline clean enrolled: <strong>57</strong> unique participants (18 BIU + 39 Haifa Q-Pre). <em>Recomputed 2026-04-24 after adding 3 test IPs to block-list — previous reports of 147 clean were inflated.</em>
   </p>
 </div>
 
@@ -1053,9 +1054,9 @@
       <div class="timeline-desc">Currently N=38, target 65-82. Need ~30 more therapists. 290 raw responses but huge completion gap.</div>
     </div>
     <div class="timeline-item hot">
-      <div class="timeline-date">Active / Running (live 2026-04-23)</div>
+      <div class="timeline-date">Active / Running (live 2026-04-24)</div>
       <div class="timeline-title">Article 12 (UP Modules) — Ethan M3/M4/M7 · 2 sites</div>
-      <div class="timeline-desc"><strong>BIU (at-home, clean):</strong> 18→10→5→4→4→1→5. M7 arm blocked by M4+M7 Cesura deployment.<br><strong>Haifa (in-class, activated 2026-04-12, clean):</strong> 40→36→24→0→0→0→0. Q-Pre through Q2 healthy (S1–S2 done); Q3+ awaiting S3/S4 class sessions.<br><em>Clean counts exclude 94 preview/staff/test-IP responses out of 241 raw. Audit: test_response_audit_2026-04-23.csv.</em></div>
+      <div class="timeline-desc"><strong>UP Module 4 DEPLOYED 2026-04-24</strong> (Claude, UUID <code>b8058918-eba6-45de-8981-cebcd0a8b0ba</code>; Elad final review pending; Mon 2026-04-28 rollout to Omer + Joy). M7 still pending — runbook ready at <code>cesura-deployment/DEPLOY_NEW_MODULE_RUNBOOK.md</code>.<br><strong>BIU (at-home, clean):</strong> 18→10→0→0→0→0→0 (Session 1 only).<br><strong>Haifa (in-class, activated 2026-04-12, clean):</strong> 39→35→23→0→0→0→0. Q-Pre through Q2 healthy (S1–S2 done); Q3+ awaiting S3/S4 class sessions.<br><em>Clean counts exclude 116 preview/staff/test-IP responses out of 241 raw (3 IPs added to block-list 2026-04-24; previous 147 figure was inflated). Audit: test_response_audit_2026-04-23.csv.</em></div>
     </div>
     <div class="timeline-item soon">
       <div class="timeline-date">Active / Platform Live</div>
@@ -1126,7 +1127,7 @@
   MENTI Project · Developing AI Tools for Enhancing Mentalization Skills · Bar-Ilan University + University of Haifa<br>
   Israel Ministry of Innovation, Science and Technology · Grant #0008682 · IRB #290125444<br>
   Co-PIs: Prof. Eshkol Rafaeli (BIU) · Dr. Omer Linkovski (BIU) · Prof. Zohar Elyoseph (Haifa) · Programme PI: Elad Refoua · Co-investigator: Dr. Karen Yirmiya (UCL/BGU) · Senior theoretical collaborator: Prof. Peter Fonagy (Anna Freud Centre) · Research coordinator: Yuval Holzman<br>
-  Dashboard last updated 2026-04-24 (UP funnel CLEAN counts — test/preview/staff-email responses filtered; 94 of 241 removed; see audit CSV). Leadership framing corrected 2026-04-24.<br>
+  Dashboard last updated 2026-04-24 PM. UP Module 4 DEPLOYED to Cesura (UUID b8058918-eba6-45de-8981-cebcd0a8b0ba; Mon 2026-04-28 rollout to BIU + Haifa). UP funnel CLEAN counts recomputed after 3 test IPs added to block-list — 116 of 241 raw removed (prior 147-clean figure was inflated). True clean baseline: 57 (18 BIU + 39 Haifa). Leadership framing corrected 2026-04-24.<br>
   Live at <a href="https://elad-refoua.github.io/menti-dashboard/" style="color: var(--accent);">elad-refoua.github.io/menti-dashboard</a>
 </footer>
 
